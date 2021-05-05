@@ -1,18 +1,6 @@
-struct User {
-    id: i32,
-    name: String,
-    flag: Option<bool>,
-}
-
-impl User {
-    fn echo(&self) {
-        println!("{}, {}, {}", self.id, self.name, self.flag.unwrap())
-    }
-
-    fn info(self) {
-        println!("{}", &self.name.as_str())
-    }
-}
+mod random;
+mod sensor;
+mod user;
 
 fn main() {
     let x = 9;
@@ -23,19 +11,18 @@ fn main() {
     for i in 1..=5 {
         println!("index is {}", i);
     }
-    
-    let user = User { id: 1, name: "test".to_string(), flag: Some(false) };
-    let user2 = user;
-    // user.echo(); error: after move
-    sub(&user2);
 
-    let v = 9;
-    let w = v;
-    println!("v = {}, x = {}", v, w);
+    user::print_user_info();
 
-    user2.info()
-}
+    sensor::print_sensor_info();
 
-fn sub(user: &User) {
-    user.echo();
+    let v1 = 96;
+    let v2 = i64::from(v1);
+
+    use std::convert::TryFrom;
+
+    let v3 = i32::try_from(v2);
+    println!("v1 = {}, v2 = {}, v3 = {}", v1, v2, v3.unwrap());
+
+    random::print_random()
 }
